@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package version="1.0">
+  <name>Net_GeoIP</name>
+  <summary>Library to perform geo-location lookups of IP addresses.</summary>
+  <description>
+    A library that uses Maxmind's GeoIP databases to accurately determine geographic location of an IP address.
+  </description>
+  <maintainers>
+    <maintainer>
+      <user>hlellelid</user>
+      <name>Hans Lellelid</name>
+      <email>hans@xmpl.org</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.1.0</version>
+    <date>2004-06-15</date>
+    <license>LGPL 2.1</license>
+    <state>alpha</state>
+    <notes>
+- Initial port to PHP5.
+    </notes>
+	<deps>
+      <dep type="php" rel="ge" version="5.0.0RC3"/>
+    </deps>
+    <filelist>
+      <dir name="/" baseinstalldir="Net">
+        <file role="php">GeoIP.php</file>
+        <dir name="GeoIP">
+          <file role="php">Location.php</file>
+          <file role="php">DMA.php</file>
+        </dir>
+      </dir>
+    </filelist>
+  </release> 
+</package>
