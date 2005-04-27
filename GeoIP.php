@@ -317,11 +317,15 @@ class Net_GeoIP
     /**
      * Calls the close() function to free any resources.
      * @see close()
-     */
+     *
+	 * COMMENTED OUT TO ADDRESS BUG IN PHP 5.0.4, 5.0.5dev.  THIS RESOURCE
+	 * SHOULD AUTOMATICALLY BE FREED AT SCRIPT CLOSE, SO A DESTRUCTOR
+	 * IS A GOOD IDEA BUT NOT NECESSARILY A NECESSITY.
     public function __destruct()
 	{
         $this->close();
     }
+	*/
     
     /**
      * Singleton method, use this to get an instance and avoid re-parsing the db.
