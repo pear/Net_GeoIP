@@ -17,15 +17,15 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.1.0</version>
-    <date>2004-06-15</date>
+    <version>0.9.0alpha1</version>
+    <date>2005-04-27</date>
     <license>LGPL 2.1</license>
     <state>alpha</state>
     <notes>
 - Initial port to PHP5.
     </notes>
 	<deps>
-      <dep type="php" rel="ge" version="5.0.0RC3"/>
+      <dep type="php" rel="ge" version="5.0.0"/>
     </deps>
     <filelist>
       <dir name="/" baseinstalldir="Net">
