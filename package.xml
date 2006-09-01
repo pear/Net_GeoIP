@@ -17,12 +17,12 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.9.0alpha1</version>
-    <date>2005-04-27</date>
+    <version>1.0.0RC1</version>
+    <date>2006-09-01</date>
     <license>LGPL 2.1</license>
-    <state>alpha</state>
+    <state>beta</state>
     <notes>
-- Initial port to PHP5.
+- After no [valid] bugs reported since alpha release, releasing first release candidate.
     </notes>
 	<deps>
       <dep type="php" rel="ge" version="5.0.0"/>
