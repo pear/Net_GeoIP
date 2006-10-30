@@ -414,13 +414,21 @@ class Net_GeoIP
         $s_array = fstat($fp);
         $size = $s_array['size'];
         
-        if ($shmid = shmop_open(self::SHM_KEY, "w", 0, 0)) {
+        if ($shmid = @shmop_open(self::SHM_KEY, "w", 0, 0)) {
             shmop_delete ($shmid);
             shmop_close ($shmid);
         }
-        $shmid = shmop_open(self::SHM_KEY, "c", 0644, $size);
-        shmop_write($shmid, fread($fp, $size), 0);
-        shmop_close($shmid);
+        
+		if ($shmid = @shmop_open(self::SHM_KEY, "c", 0644, $size)) {
+			$offset = 0;
+			while ($offset < $size) {
+				$buf = fread($fp, 524288);
+				shmop_write($shmid, $buf, $offset);
+				$offset += 524288;
+			}
+			shmop_close($shmid);
+		}
+		
         fclose($fp);
     }
     
