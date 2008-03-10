@@ -124,49 +124,61 @@
  */
 class Net_GeoIP
 {
-     
+	/**
+	 * Exception error code used for invalid IP address.
+	 */
+	const ERR_INVALID_IP = -1;
+	
+	/**
+	 * Exception error code when there is a DB-format-related error.
+	 */
+	const ERR_DB_FORMAT = -2;
+	
     public static $COUNTRY_CODES = array(
         "", "AP", "EU", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ",
-        "AR", "AS", "AT", "AU", "AW", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH",
-        "BI", "BJ", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA",
-        "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
-        "CV", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG",
-        "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "FX", "GA", "GB",
-        "GD", "GE", "GF", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT",
-        "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN",
-        "IO", "IQ", "IR", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM",
-        "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS",
-        "LT", "LU", "LV", "LY", "MA", "MC", "MD", "MG", "MH", "MK", "ML", "MM", "MN",
-        "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
-        "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA",
-        "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY",
-        "QA", "RE", "RO", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
-        "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "ST", "SV", "SY", "SZ", "TC", "TD",
-        "TF", "TG", "TH", "TJ", "TK", "TM", "TN", "TO", "TP", "TR", "TT", "TV", "TW",
-        "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN",
-        "VU", "WF", "WS", "YE", "YT", "YU", "ZA", "ZM", "ZR", "ZW", "A1", "A2", "O1"
+		"AR", "AS", "AT", "AU", "AW", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH",
+		"BI", "BJ", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA",
+		"CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
+		"CV", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG",
+		"EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "FX", "GA", "GB",
+		"GD", "GE", "GF", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT",
+		"GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN",
+		"IO", "IQ", "IR", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM",
+		"KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS",
+		"LT", "LU", "LV", "LY", "MA", "MC", "MD", "MG", "MH", "MK", "ML", "MM", "MN",
+		"MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+		"NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA",
+		"PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY",
+		"QA", "RE", "RO", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
+		"SJ", "SK", "SL", "SM", "SN", "SO", "SR", "ST", "SV", "SY", "SZ", "TC", "TD",
+		"TF", "TG", "TH", "TJ", "TK", "TM", "TN", "TO", "TL", "TR", "TT", "TV", "TW",
+		"TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN",
+		"VU", "WF", "WS", "YE", "YT", "RS", "ZA", "ZM", "ME", "ZW", "A1", "A2", "O1",
+		"AX", "GG", "IM", "JE", "BL", "MF"
         );
 
     public static $COUNTRY_CODES3 = array(
         "","AP","EU","AND","ARE","AFG","ATG","AIA","ALB","ARM","ANT","AGO","AQ","ARG",
-        "ASM","AUT","AUS","ABW","AZE","BIH","BRB","BGD","BEL","BFA","BGR","BHR","BDI",
-        "BEN","BMU","BRN","BOL","BRA","BHS","BTN","BV","BWA","BLR","BLZ","CAN","CC",
-        "COD","CAF","COG","CHE","CIV","COK","CHL","CMR","CHN","COL","CRI","CUB","CPV",
-        "CX","CYP","CZE","DEU","DJI","DNK","DMA","DOM","DZA","ECU","EST","EGY","ESH",
-        "ERI","ESP","ETH","FIN","FJI","FLK","FSM","FRO","FRA","FX","GAB","GBR","GRD",
-        "GEO","GUF","GHA","GIB","GRL","GMB","GIN","GLP","GNQ","GRC","GS","GTM","GUM",
-        "GNB","GUY","HKG","HM","HND","HRV","HTI","HUN","IDN","IRL","ISR","IND","IO",
-        "IRQ","IRN","ISL","ITA","JAM","JOR","JPN","KEN","KGZ","KHM","KIR","COM","KNA",
-        "PRK","KOR","KWT","CYM","KAZ","LAO","LBN","LCA","LIE","LKA","LBR","LSO","LTU",
-        "LUX","LVA","LBY","MAR","MCO","MDA","MDG","MHL","MKD","MLI","MMR","MNG","MAC",
-        "MNP","MTQ","MRT","MSR","MLT","MUS","MDV","MWI","MEX","MYS","MOZ","NAM","NCL",
-        "NER","NFK","NGA","NIC","NLD","NOR","NPL","NRU","NIU","NZL","OMN","PAN","PER",
-        "PYF","PNG","PHL","PAK","POL","SPM","PCN","PRI","PSE","PRT","PLW","PRY","QAT",
-        "REU","ROU","RUS","RWA","SAU","SLB","SYC","SDN","SWE","SGP","SHN","SVN","SJM",
-        "SVK","SLE","SMR","SEN","SOM","SUR","STP","SLV","SYR","SWZ","TCA","TCD","TF",
-        "TGO","THA","TJK","TKL","TLS","TKM","TUN","TON","TUR","TTO","TUV","TWN","TZA",
-        "UKR","UGA","UM","USA","URY","UZB","VAT","VCT","VEN","VGB","VIR","VNM","VUT",
-        "WLF","WSM","YEM","YT","YUG","ZAF","ZMB","ZR","ZWE","A1","A2","O1");
+		"ASM","AUT","AUS","ABW","AZE","BIH","BRB","BGD","BEL","BFA","BGR","BHR","BDI",
+		"BEN","BMU","BRN","BOL","BRA","BHS","BTN","BV","BWA","BLR","BLZ","CAN","CC",
+		"COD","CAF","COG","CHE","CIV","COK","CHL","CMR","CHN","COL","CRI","CUB","CPV",
+		"CX","CYP","CZE","DEU","DJI","DNK","DMA","DOM","DZA","ECU","EST","EGY","ESH",
+		"ERI","ESP","ETH","FIN","FJI","FLK","FSM","FRO","FRA","FX","GAB","GBR","GRD",
+		"GEO","GUF","GHA","GIB","GRL","GMB","GIN","GLP","GNQ","GRC","GS","GTM","GUM",
+		"GNB","GUY","HKG","HM","HND","HRV","HTI","HUN","IDN","IRL","ISR","IND","IO",
+		"IRQ","IRN","ISL","ITA","JAM","JOR","JPN","KEN","KGZ","KHM","KIR","COM","KNA",
+		"PRK","KOR","KWT","CYM","KAZ","LAO","LBN","LCA","LIE","LKA","LBR","LSO","LTU",
+		"LUX","LVA","LBY","MAR","MCO","MDA","MDG","MHL","MKD","MLI","MMR","MNG","MAC",
+		"MNP","MTQ","MRT","MSR","MLT","MUS","MDV","MWI","MEX","MYS","MOZ","NAM","NCL",
+		"NER","NFK","NGA","NIC","NLD","NOR","NPL","NRU","NIU","NZL","OMN","PAN","PER",
+		"PYF","PNG","PHL","PAK","POL","SPM","PCN","PRI","PSE","PRT","PLW","PRY","QAT",
+		"REU","ROU","RUS","RWA","SAU","SLB","SYC","SDN","SWE","SGP","SHN","SVN","SJM",
+		"SVK","SLE","SMR","SEN","SOM","SUR","STP","SLV","SYR","SWZ","TCA","TCD","TF",
+		"TGO","THA","TJK","TKL","TLS","TKM","TUN","TON","TUR","TTO","TUV","TWN","TZA",
+		"UKR","UGA","UM","USA","URY","UZB","VAT","VCT","VEN","VGB","VIR","VNM","VUT",
+		"WLF","WSM","YEM","YT","SRB","ZAF","ZMB","MNE","ZWE","A1","A2","O1",
+		"ALA","GGY","IMN","JEY","BLM","MAF"
+    	);
 
 	public static $COUNTRY_NAMES = array(
 		"", "Asia/Pacific Region", "Europe", "Andorra", "United Arab Emirates",
@@ -177,48 +189,49 @@ class Net_GeoIP
 		"Burundi", "Benin", "Bermuda", "Brunei Darussalam", "Bolivia", "Brazil",
 		"Bahamas", "Bhutan", "Bouvet Island", "Botswana", "Belarus", "Belize",
 		"Canada", "Cocos (Keeling) Islands", "Congo, The Democratic Republic of the",
-		"Central African Republic", "Congo", "Switzerland", "Cote D'Ivoire", "Cook Islands", 
-		"Chile", "Cameroon", "China", "Colombia", "Costa Rica", "Cuba", "Cape Verde", 
+		"Central African Republic", "Congo", "Switzerland", "Cote D'Ivoire", "Cook Islands",
+		"Chile", "Cameroon", "China", "Colombia", "Costa Rica", "Cuba", "Cape Verde",
 		"Christmas Island", "Cyprus", "Czech Republic", "Germany", "Djibouti",
 		"Denmark", "Dominica", "Dominican Republic", "Algeria", "Ecuador", "Estonia",
 		"Egypt", "Western Sahara", "Eritrea", "Spain", "Ethiopia", "Finland", "Fiji",
-		"Falkland Islands (Malvinas)", "Micronesia, Federated States of", "Faroe Islands", 
+		"Falkland Islands (Malvinas)", "Micronesia, Federated States of", "Faroe Islands",
 		"France", "France, Metropolitan", "Gabon", "United Kingdom",
 		"Grenada", "Georgia", "French Guiana", "Ghana", "Gibraltar", "Greenland",
-		"Gambia", "Guinea", "Guadeloupe", "Equatorial Guinea", "Greece", 
-		"South Georgia and the South Sandwich Islands", "Guatemala", "Guam", "Guinea-Bissau",
+		"Gambia", "Guinea", "Guadeloupe", "Equatorial Guinea", "Greece", "South Georgia and the South Sandwich Islands",
+		"Guatemala", "Guam", "Guinea-Bissau",
 		"Guyana", "Hong Kong", "Heard Island and McDonald Islands", "Honduras",
 		"Croatia", "Haiti", "Hungary", "Indonesia", "Ireland", "Israel", "India",
 		"British Indian Ocean Territory", "Iraq", "Iran, Islamic Republic of",
 		"Iceland", "Italy", "Jamaica", "Jordan", "Japan", "Kenya", "Kyrgyzstan",
-		"Cambodia", "Kiribati", "Comoros", "Saint Kitts and Nevis", 
-		"Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Cayman Islands",
+		"Cambodia", "Kiribati", "Comoros", "Saint Kitts and Nevis", "Korea, Democratic People's Republic of",
+		"Korea, Republic of", "Kuwait", "Cayman Islands",
 		"Kazakstan", "Lao People's Democratic Republic", "Lebanon", "Saint Lucia",
 		"Liechtenstein", "Sri Lanka", "Liberia", "Lesotho", "Lithuania", "Luxembourg",
-		"Latvia", "Libyan Arab Jamahiriya", "Morocco", "Monaco", "Moldova, Republic of", 
-		"Madagascar", "Marshall Islands", "Macedonia", "Mali", "Myanmar", "Mongolia", 
-		"Macau", "Northern Mariana Islands",
+		"Latvia", "Libyan Arab Jamahiriya", "Morocco", "Monaco", "Moldova, Republic of",
+		"Madagascar", "Marshall Islands", "Macedonia",
+		"Mali", "Myanmar", "Mongolia", "Macau", "Northern Mariana Islands",
 		"Martinique", "Mauritania", "Montserrat", "Malta", "Mauritius", "Maldives",
 		"Malawi", "Mexico", "Malaysia", "Mozambique", "Namibia", "New Caledonia",
 		"Niger", "Norfolk Island", "Nigeria", "Nicaragua", "Netherlands", "Norway",
-		"Nepal", "Nauru", "Niue", "New Zealand", "Oman", "Panama", "Peru", "French Polynesia", 
-		"Papua New Guinea", "Philippines", "Pakistan", "Poland", "Saint Pierre and Miquelon", 
-		"Pitcairn Islands", "Puerto Rico", "Palestinian Territory, Occupied", 
+		"Nepal", "Nauru", "Niue", "New Zealand", "Oman", "Panama", "Peru", "French Polynesia",
+		"Papua New Guinea", "Philippines", "Pakistan", "Poland", "Saint Pierre and Miquelon",
+		"Pitcairn Islands", "Puerto Rico", "Palestinian Territory",
 		"Portugal", "Palau", "Paraguay", "Qatar", "Reunion", "Romania",
 		"Russian Federation", "Rwanda", "Saudi Arabia", "Solomon Islands",
 		"Seychelles", "Sudan", "Sweden", "Singapore", "Saint Helena", "Slovenia",
 		"Svalbard and Jan Mayen", "Slovakia", "Sierra Leone", "San Marino", "Senegal",
-		"Somalia", "Suriname", "Sao Tome and Principe", "El Salvador", "Syrian Arab Republic", "Swaziland", 
-		"Turks and Caicos Islands", "Chad", "French Southern Territories", 
+		"Somalia", "Suriname", "Sao Tome and Principe", "El Salvador", "Syrian Arab Republic",
+		"Swaziland", "Turks and Caicos Islands", "Chad", "French Southern Territories",
 		"Togo", "Thailand", "Tajikistan", "Tokelau", "Turkmenistan",
-		"Tunisia", "Tonga", "East Timor", "Turkey", "Trinidad and Tobago", "Tuvalu",
+		"Tunisia", "Tonga", "Timor-Leste", "Turkey", "Trinidad and Tobago", "Tuvalu",
 		"Taiwan", "Tanzania, United Republic of", "Ukraine",
 		"Uganda", "United States Minor Outlying Islands", "United States", "Uruguay",
-		"Uzbekistan", "Holy See (Vatican City State)", "Saint Vincent and the Grenadines", 
+		"Uzbekistan", "Holy See (Vatican City State)", "Saint Vincent and the Grenadines",
 		"Venezuela", "Virgin Islands, British", "Virgin Islands, U.S.",
 		"Vietnam", "Vanuatu", "Wallis and Futuna", "Samoa", "Yemen", "Mayotte",
-		"Yugoslavia", "South Africa", "Zambia", "Zaire", "Zimbabwe",
-		"Anonymous Proxy","Satellite Provider","Other"
+		"Serbia", "South Africa", "Zambia", "Montenegro", "Zimbabwe",
+		"Anonymous Proxy","Satellite Provider","Other",
+		"Aland Islands","Guernsey","Isle of Man","Jersey","Saint Barthelemy","Saint Martin"
 		);
             
     // storage / caching flags
@@ -370,7 +383,7 @@ class Net_GeoIP
      * Opens geoip database at filename and with specified flags.
      * @param string $filename
      * @param int $flags
-     * @throws Exception     - if unable to open specified file or shared memory.
+     * @throws PEAR_Exception     - if unable to open specified file or shared memory.
      */
     public function open($filename, $flags = null)
 	{    
@@ -383,13 +396,13 @@ class Net_GeoIP
                 $this->loadSharedMemory($filename);
                 $this->shmid = @shmop_open(self::SHM_KEY, "a", 0, 0);
                 if ($this->shmid === false) { // should never be false as loadSharedMemory() will throw Exc if cannot create
-                    throw new Exception("Unable to open shared memory at key: " . dechex(self::SHM_KEY));
+                    throw new PEAR_Exception("Unable to open shared memory at key: " . dechex(self::SHM_KEY));
                 }
             }
           } else {
             $this->filehandle = fopen($filename, "rb");
             if (!$this->filehandle) {
-                throw new Exception("Unable to open file: $filename");
+                throw new PEAR_Exception("Unable to open file: $filename");
             }
             if ($this->flags & self::MEMORY_CACHE) {
                 $s_array = fstat($this->filehandle);
@@ -403,13 +416,13 @@ class Net_GeoIP
      * Loads the database file into shared memory.
      * @param string $filename Path to database file to read into shared memory.
      * @return void
-     * @throws Exception     - if unable to read the db file.
+     * @throws PEAR_Exception     - if unable to read the db file.
      */
     private function loadSharedMemory($filename)
 	{
         $fp = fopen($filename, "rb");
         if (!$fp) {
-            throw new Exception("Unable to open file: $filename");
+            throw new PEAR_Exception("Unable to open file: $filename");
         }
         $s_array = fstat($fp);
         $size = $s_array['size'];
@@ -538,17 +551,17 @@ class Net_GeoIP
      * for the code and name.
      * 
      * @param string $addr
-     * @throws Exception     - if IP address is invalid.
+     * @throws PEAR_Exception  - if IP address is invalid.
      *                         - if database type is incorrect
      */
     private function lookupCountryId($addr)
 	{        
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-            throw new Exception("Invalid IP address: " . var_export($addr, true));
+            throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
         if ($this->databaseType !== self::COUNTRY_EDITION) {
-            throw new Exception("Invalid database type; lookupCountry*() methods expect Country database.");
+            throw new PEAR_Exception("Invalid database type; lookupCountry*() methods expect Country database.");
         }
         return $this->seekCountry($ipnum) - self::COUNTRY_BEGIN;
     }
@@ -558,7 +571,7 @@ class Net_GeoIP
      * Use this method if you have a Country database.
      * @param string $addr IP address (hostname not allowed).
      * @return string 2-letter country code
-     * @throws Exception (see lookupCountryId())
+     * @throws PEAR_Exception (see lookupCountryId())
      * @see lookupCountryId()
      */
     public function lookupCountryCode($addr)
@@ -571,7 +584,7 @@ class Net_GeoIP
      * Use this method if you have a Country database.
      * @param string $addr IP address (hostname not allowed).
      * @return string Country name
-     * @throws Exception (see lookupCountryId())
+     * @throws PEAR_Exception (see lookupCountryId())
      * @see lookupCountryId()
      */
     public function lookupCountryName($addr)
@@ -584,7 +597,7 @@ class Net_GeoIP
      * to the converted IP address integer.
      * @param int $ipnum Result of ip2long() conversion.
      * @return int Offset of start of record.
-     * @throws Exception - if fseek() fails on the file or no results after traversing the database (indicating corrupt db).
+     * @throws PEAR_Exception - if fseek() fails on the file or no results after traversing the database (indicating corrupt db).
      */
     private function seekCountry($ipnum)
 	{
@@ -596,7 +609,7 @@ class Net_GeoIP
                 $buf = shmop_read ($this->shmid, 2 * $this->recordLength * $offset, 2 * $this->recordLength );
             } else {
                 if (fseek($this->filehandle, 2 * $this->recordLength * $offset, SEEK_SET) !== 0) {
-                    throw new Exception("fseek failed");
+                    throw new PEAR_Exception("fseek failed");
                 }                
                 $buf = fread($this->filehandle, 2 * $this->recordLength);
             }
@@ -618,24 +631,24 @@ class Net_GeoIP
                 $offset = $x[0];
             }                              
         }
-        throw new Exception("Error traversing database - perhaps it is corrupt?");        
+        throw new PEAR_Exception("Error traversing database - perhaps it is corrupt?");        
     }
 
     /**
      * Lookup the organization (or ISP) for given IP address.
      * Use this method if you have an Organization/ISP database.
      * @param string $addr IP address (hostname not allowed).
-     * @throws Exception     - if IP address is invalid.
+     * @throws PEAR_Exception     - if IP address is invalid.
      *                         - if database is of wrong type
      */
     public function lookupOrg($addr)
 	{
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-           throw new Exception("Invalid IP address: " . var_export($addr, true));
+           throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true));
         }
         if ($this->databaseType !== self::ORG_EDITION) {
-            throw new Exception("Invalid database type; lookupOrg() method expects Org/ISP database.");
+            throw new PEAR_Exception("Invalid database type; lookupOrg() method expects Org/ISP database.", self::ERR_DB_FORMAT);
         }
         return $this->getOrg($ipnum);
     }
@@ -645,16 +658,16 @@ class Net_GeoIP
      * Use this method if you have a Region database.
      * @param string $addr IP address (hostname not allowed).
      * @return array Array containing country code and region: array($country_code, $region)
-     * @throws Exception - if IP address is invalid.
+     * @throws PEAR_Exception - if IP address is invalid.
      */
     public function lookupRegion($addr)
 	{
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-            throw new Exception("Invalid IP address: " . var_export($addr, true));
+            throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
         if ($this->databaseType !== self::REGION_EDITION_REV0 && $this->databaseType !== self::REGION_EDITION_REV1) {
-            throw new Exception("Invalid database type; lookupRegion() method expects Region database.");
+            throw new PEAR_Exception("Invalid database type; lookupRegion() method expects Region database.", self::ERR_DB_FORMAT);
         }
         return $this->getRegion($ipnum);
     }    
@@ -664,17 +677,17 @@ class Net_GeoIP
      * Use this method if you have a City database.
      * @param string $addr IP address (hostname not allowed).
      * @return Net_GeoIP_Location The full location record.
-     * @throws Exception - if IP address is invalid.
+     * @throws PEAR_Exception - if IP address is invalid.
      */
     public function lookupLocation($addr)
 	{
         require_once 'Net/GeoIP/Location.php';
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-            throw new Exception("Invalid IP address: " . var_export($addr, true));
+            throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
         if ($this->databaseType !== self::CITY_EDITION_REV0 && $this->databaseType !== self::CITY_EDITION_REV1) {
-            throw new Exception("Invalid database type; lookupLocation() method expects City database.");
+            throw new PEAR_Exception("Invalid database type; lookupLocation() method expects City database.");
         }
         return $this->getRecord($ipnum);
     }
@@ -682,7 +695,6 @@ class Net_GeoIP
     /**
      * Seek and return organization (or ISP) name for converted IP addr.
      * @param int $ipnum Converted IP address.
-     * @todo -cGeoIP Consider adding MEMORY_CACHE support to the getOrg() method (if there is a perf. difference).
      */
     private function getOrg($ipnum)
 	{
