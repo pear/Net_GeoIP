@@ -129,12 +129,12 @@ class Net_GeoIP
 	/**
 	 * Exception error code used for invalid IP address.
 	 */
-	const ERR_INVALID_IP = -1;
+	const ERR_INVALID_IP =  218624992; // crc32('Net_GeoIP::ERR_INVALID_IP')
 	
 	/**
 	 * Exception error code when there is a DB-format-related error.
 	 */
-	const ERR_DB_FORMAT = -2;
+	const ERR_DB_FORMAT = 866184008; // crc32('Net_GeoIP::ERR_DB_FORMAT')
 	
     public static $COUNTRY_CODES = array(
         "", "AP", "EU", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ",
