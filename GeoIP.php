@@ -647,7 +647,7 @@ class Net_GeoIP
 	{
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-           throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true));
+           throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
         if ($this->databaseType !== self::ORG_EDITION) {
             throw new PEAR_Exception("Invalid database type; lookupOrg() method expects Org/ISP database.", self::ERR_DB_FORMAT);
