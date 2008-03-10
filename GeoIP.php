@@ -26,6 +26,8 @@
 //
 // $Id$
 
+require_once 'PEAR/Exception.php';
+
 /**
  * GeoIP class provides an API for performing geo-location lookups based on IP 
  * address.
