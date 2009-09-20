@@ -1,29 +1,36 @@
 <?php
-// +----------------------------------------------------------------------+
-// | PHP version 5                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (C) 2004 MaxMind LLC                                       |
-// +----------------------------------------------------------------------+
-// | This library is free software; you can redistribute it and/or        |
-// | modify it under the terms of the GNU Lesser General Public           |
-// | License as published by the Free Software Foundation; either         |
-// | version 2.1 of the License, or (at your option) any later version.   |
-// |                                                                      |
-// | This library is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    |
-// | Lesser General Public License for more details.                      |
-// |                                                                      |
-// | You should have received a copy of the GNU Lesser General Public     |
-// | License along with this library; if not, write to the Free Software  |
-// | Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 |
-// | USA, or view it online at http://www.gnu.org/licenses/lgpl.txt.      |
-// +----------------------------------------------------------------------+
-// | Authors: Jim Winstead <jimw@apache.org> (original Maxmind version)   |
-// |          Hans Lellelid <hans@xmpl.org>                               |
-// +----------------------------------------------------------------------+
-//
-// $Id$
+/**
+ * +----------------------------------------------------------------------+
+ * | PHP version 5                                                        |
+ * +----------------------------------------------------------------------+
+ * | Copyright (C) 2004 MaxMind LLC                                       |
+ * +----------------------------------------------------------------------+
+ * | This library is free software; you can redistribute it and/or        |
+ * | modify it under the terms of the GNU Lesser General Public           |
+ * | License as published by the Free Software Foundation; either         |
+ * | version 2.1 of the License, or (at your option) any later version.   |
+ * |                                                                      |
+ * | This library is distributed in the hope that it will be useful,      |
+ * | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
+ * | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    |
+ * | Lesser General Public License for more details.                      |
+ * |                                                                      |
+ * | You should have received a copy of the GNU Lesser General Public     |
+ * | License along with this library; if not, write to the Free Software  |
+ * | Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 |
+ * | USA, or view it online at http://www.gnu.org/licenses/lgpl.txt.      |
+ * +----------------------------------------------------------------------+
+ * | Authors: Jim Winstead <jimw@apache.org> (original Maxmind version)   |
+ * |          Hans Lellelid <hans@xmpl.org>                               |
+ * +----------------------------------------------------------------------+
+ *
+ * @category Net
+ * @package  Net_GeoIP
+ * @author   Hans Lellelid <hans@xmpl.org>
+ * @license  LGPL http://www.gnu.org/licenses/lgpl.txt
+ * @link     http://pear.php.net/package/Net_GeoIp
+ * $Id$
+ */
 
 /**
  * Static class to handle mapping of DMA codes to metro regions.
@@ -34,10 +41,13 @@
  * $region = Net_GeoIPDMA::getMetroRegion($record->dmaCode);
  * </code>
  * 
- * 
- * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision$
- * @package Net_GeoIP
+ * @category Net
+ * @package  Net_GeoIP
+ * @author   Hans Lellelid <hans@xmpl.org>
+ * @author   Dmitri Snytkine <d.snytkine@gmail.com>
+ * @license  LGPL http://www.gnu.org/licenses/lgpl.txt
+ * @version  $Revision$
+ * @link     http://pear.php.net/package/Net_GeoIp
  */
 class Net_GeoIP_DMA
 {
@@ -47,6 +57,11 @@ class Net_GeoIP_DMA
      */
     private static $dmaMap;
     
+    /**
+     * Initialize
+     * 
+     * @return void
+     */
     public static function initialize()
     {
         self::$dmaMap = array(
@@ -266,7 +281,9 @@ class Net_GeoIP_DMA
     
     /**
      * Lookup the metro region based on the provided DMA code.
-     * @param int $dmaCode
+     * 
+     * @param int $dmaCode The DMA code
+     * 
      * @return string Metro region name.
      */
     public static function getMetroRegion($dmaCode)
@@ -282,7 +299,9 @@ class Net_GeoIP_DMA
 
     /**
      * Reverse lookup of DMA code if [exact] metro region name is known.
+     * 
      * @param string $metro Metro region name.
+     * 
      * @return int DMA code, or false if not found.
      */
     public static function getDMACode($metro)    
