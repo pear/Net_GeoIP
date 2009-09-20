@@ -1,30 +1,37 @@
 <?php
-
-// +----------------------------------------------------------------------+
-// | PHP version 5                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (C) 2004 MaxMind LLC                                       |
-// +----------------------------------------------------------------------+
-// | This library is free software; you can redistribute it and/or        |
-// | modify it under the terms of the GNU Lesser General Public           |
-// | License as published by the Free Software Foundation; either         |
-// | version 2.1 of the License, or (at your option) any later version.   |
-// |                                                                      |
-// | This library is distributed in the hope that it will be useful,      |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    |
-// | Lesser General Public License for more details.                      |
-// |                                                                      |
-// | You should have received a copy of the GNU Lesser General Public     |
-// | License along with this library; if not, write to the Free Software  |
-// | Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 |
-// | USA, or view it online at http://www.gnu.org/licenses/lgpl.txt.      |
-// +----------------------------------------------------------------------+
-// | Authors: Jim Winstead <jimw@apache.org> (original Maxmind version)   |
-// |          Hans Lellelid <hans@xmpl.org>                               |
-// +----------------------------------------------------------------------+
-//
-// $Id$
+/**
+ * +----------------------------------------------------------------------+
+ * | PHP version 5                                                        |
+ * +----------------------------------------------------------------------+
+ * | Copyright (C) 2004 MaxMind LLC                                       |
+ * +----------------------------------------------------------------------+
+ * | This library is free software; you can redistribute it and/or        |
+ * | modify it under the terms of the GNU Lesser General Public           |
+ * | License as published by the Free Software Foundation; either         |
+ * | version 2.1 of the License, or (at your option) any later version.   |
+ * |                                                                      |
+ * | This library is distributed in the hope that it will be useful,      |
+ * | but WITHOUT ANY WARRANTY; without even the implied warranty of       |
+ * | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    |
+ * | Lesser General Public License for more details.                      |
+ * |                                                                      |
+ * | You should have received a copy of the GNU Lesser General Public     |
+ * | License along with this library; if not, write to the Free Software  |
+ * | Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 |
+ * | USA, or view it online at http://www.gnu.org/licenses/lgpl.txt.      |
+ * +----------------------------------------------------------------------+
+ * | Authors: Jim Winstead <jimw@apache.org> (original Maxmind version)   |
+ * |          Hans Lellelid <hans@xmpl.org>                               |
+ * +----------------------------------------------------------------------+
+ *
+ * @category Net
+ * @package  Net_GeoIP
+ * @author   Jim Winstead <jimw@apache.org> (original Maxmind PHP API)
+ * @author   Hans Lellelid <hans@xmpl.org>
+ * @license  LGPL http://www.gnu.org/licenses/lgpl.txt
+ * @link     http://pear.php.net/package/Net_GeoIp
+ * $Id$
+ */
 
 require_once 'PEAR/Exception.php';
 
@@ -119,10 +126,12 @@ require_once 'PEAR/Exception.php';
  * $ctry = $geoip->lookupCountryName($ip);
  * </code>
  * 
- * @author Jim Winstead <jimw@apache.org> (original Maxmind PHP API)
- * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision$
- * @package Net_GeoIP
+ * @category Net
+ * @package  Net_GeoIP
+ * @author   Jim Winstead <jimw@apache.org> (original Maxmind PHP API)
+ * @author   Hans Lellelid <hans@xmpl.org>
+ * @license  LGPL http://www.gnu.org/licenses/lgpl.txt
+ * @link     http://pear.php.net/package/Net_GeoIp
  */
 class Net_GeoIP
 {
@@ -137,49 +146,49 @@ class Net_GeoIP
     const ERR_DB_FORMAT = 866184008; // crc32('Net_GeoIP::ERR_DB_FORMAT')
     
     public static $COUNTRY_CODES = array(
-        "", "AP", "EU", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ",
-        "AR", "AS", "AT", "AU", "AW", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH",
-        "BI", "BJ", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA",
-        "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
-        "CV", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG",
-        "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "FX", "GA", "GB",
-        "GD", "GE", "GF", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT",
-        "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN",
-        "IO", "IQ", "IR", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM",
-        "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS",
-        "LT", "LU", "LV", "LY", "MA", "MC", "MD", "MG", "MH", "MK", "ML", "MM", "MN",
-        "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
-        "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA",
-        "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY",
-        "QA", "RE", "RO", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
-        "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "ST", "SV", "SY", "SZ", "TC", "TD",
-        "TF", "TG", "TH", "TJ", "TK", "TM", "TN", "TO", "TL", "TR", "TT", "TV", "TW",
-        "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN",
-        "VU", "WF", "WS", "YE", "YT", "RS", "ZA", "ZM", "ME", "ZW", "A1", "A2", "O1",
-        "AX", "GG", "IM", "JE", "BL", "MF"
+      "", "AP", "EU", "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ",
+      "AR", "AS", "AT", "AU", "AW", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH",
+      "BI", "BJ", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA",
+      "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
+      "CV", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG",
+      "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "FX", "GA", "GB",
+      "GD", "GE", "GF", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT",
+      "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN",
+      "IO", "IQ", "IR", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM",
+      "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS",
+      "LT", "LU", "LV", "LY", "MA", "MC", "MD", "MG", "MH", "MK", "ML", "MM", "MN",
+      "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+      "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA",
+      "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY",
+      "QA", "RE", "RO", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
+      "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "ST", "SV", "SY", "SZ", "TC", "TD",
+      "TF", "TG", "TH", "TJ", "TK", "TM", "TN", "TO", "TL", "TR", "TT", "TV", "TW",
+      "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN",
+      "VU", "WF", "WS", "YE", "YT", "RS", "ZA", "ZM", "ME", "ZW", "A1", "A2", "O1",
+      "AX", "GG", "IM", "JE", "BL", "MF"
         );
 
     public static $COUNTRY_CODES3 = array(
-        "","AP","EU","AND","ARE","AFG","ATG","AIA","ALB","ARM","ANT","AGO","AQ","ARG",
-        "ASM","AUT","AUS","ABW","AZE","BIH","BRB","BGD","BEL","BFA","BGR","BHR","BDI",
-        "BEN","BMU","BRN","BOL","BRA","BHS","BTN","BV","BWA","BLR","BLZ","CAN","CC",
-        "COD","CAF","COG","CHE","CIV","COK","CHL","CMR","CHN","COL","CRI","CUB","CPV",
-        "CX","CYP","CZE","DEU","DJI","DNK","DMA","DOM","DZA","ECU","EST","EGY","ESH",
-        "ERI","ESP","ETH","FIN","FJI","FLK","FSM","FRO","FRA","FX","GAB","GBR","GRD",
-        "GEO","GUF","GHA","GIB","GRL","GMB","GIN","GLP","GNQ","GRC","GS","GTM","GUM",
-        "GNB","GUY","HKG","HM","HND","HRV","HTI","HUN","IDN","IRL","ISR","IND","IO",
-        "IRQ","IRN","ISL","ITA","JAM","JOR","JPN","KEN","KGZ","KHM","KIR","COM","KNA",
-        "PRK","KOR","KWT","CYM","KAZ","LAO","LBN","LCA","LIE","LKA","LBR","LSO","LTU",
-        "LUX","LVA","LBY","MAR","MCO","MDA","MDG","MHL","MKD","MLI","MMR","MNG","MAC",
-        "MNP","MTQ","MRT","MSR","MLT","MUS","MDV","MWI","MEX","MYS","MOZ","NAM","NCL",
-        "NER","NFK","NGA","NIC","NLD","NOR","NPL","NRU","NIU","NZL","OMN","PAN","PER",
-        "PYF","PNG","PHL","PAK","POL","SPM","PCN","PRI","PSE","PRT","PLW","PRY","QAT",
-        "REU","ROU","RUS","RWA","SAU","SLB","SYC","SDN","SWE","SGP","SHN","SVN","SJM",
-        "SVK","SLE","SMR","SEN","SOM","SUR","STP","SLV","SYR","SWZ","TCA","TCD","TF",
-        "TGO","THA","TJK","TKL","TLS","TKM","TUN","TON","TUR","TTO","TUV","TWN","TZA",
-        "UKR","UGA","UM","USA","URY","UZB","VAT","VCT","VEN","VGB","VIR","VNM","VUT",
-        "WLF","WSM","YEM","YT","SRB","ZAF","ZMB","MNE","ZWE","A1","A2","O1",
-        "ALA","GGY","IMN","JEY","BLM","MAF"
+    "","AP","EU","AND","ARE","AFG","ATG","AIA","ALB","ARM","ANT","AGO","AQ","ARG",
+    "ASM","AUT","AUS","ABW","AZE","BIH","BRB","BGD","BEL","BFA","BGR","BHR","BDI",
+    "BEN","BMU","BRN","BOL","BRA","BHS","BTN","BV","BWA","BLR","BLZ","CAN","CC",
+    "COD","CAF","COG","CHE","CIV","COK","CHL","CMR","CHN","COL","CRI","CUB","CPV",
+    "CX","CYP","CZE","DEU","DJI","DNK","DMA","DOM","DZA","ECU","EST","EGY","ESH",
+    "ERI","ESP","ETH","FIN","FJI","FLK","FSM","FRO","FRA","FX","GAB","GBR","GRD",
+    "GEO","GUF","GHA","GIB","GRL","GMB","GIN","GLP","GNQ","GRC","GS","GTM","GUM",
+    "GNB","GUY","HKG","HM","HND","HRV","HTI","HUN","IDN","IRL","ISR","IND","IO",
+    "IRQ","IRN","ISL","ITA","JAM","JOR","JPN","KEN","KGZ","KHM","KIR","COM","KNA",
+    "PRK","KOR","KWT","CYM","KAZ","LAO","LBN","LCA","LIE","LKA","LBR","LSO","LTU",
+    "LUX","LVA","LBY","MAR","MCO","MDA","MDG","MHL","MKD","MLI","MMR","MNG","MAC",
+    "MNP","MTQ","MRT","MSR","MLT","MUS","MDV","MWI","MEX","MYS","MOZ","NAM","NCL",
+    "NER","NFK","NGA","NIC","NLD","NOR","NPL","NRU","NIU","NZL","OMN","PAN","PER",
+    "PYF","PNG","PHL","PAK","POL","SPM","PCN","PRI","PSE","PRT","PLW","PRY","QAT",
+    "REU","ROU","RUS","RWA","SAU","SLB","SYC","SDN","SWE","SGP","SHN","SVN","SJM",
+    "SVK","SLE","SMR","SEN","SOM","SUR","STP","SLV","SYR","SWZ","TCA","TCD","TF",
+    "TGO","THA","TJK","TKL","TLS","TKM","TUN","TON","TUR","TTO","TUV","TWN","TZA",
+    "UKR","UGA","UM","USA","URY","UZB","VAT","VCT","VEN","VGB","VIR","VNM","VUT",
+    "WLF","WSM","YEM","YT","SRB","ZAF","ZMB","MNE","ZWE","A1","A2","O1",
+    "ALA","GGY","IMN","JEY","BLM","MAF"
         );
 
     public static $COUNTRY_NAMES = array(
@@ -277,27 +286,27 @@ class Net_GeoIP
     /**
      * @var resource
      */
-      private $filehandle;
+    private $filehandle;
     
     /**
      * @var string
      */
-      private $memoryBuffer;
+    private $memoryBuffer;
     
     /**
      * @var int
      */
-      private $databaseType;
+    private $databaseType;
     
     /**
      * @var int
      */
-      private $databaseSegments;
+    private $databaseSegments;
     
     /**
      * @var int
      */
-      private $recordLength;
+    private $recordLength;
     
     /**
      * The memory addr "id" for use with SHMOP.
@@ -315,13 +324,15 @@ class Net_GeoIP
      * Construct a Net_GeoIP instance.
      * You should use the getInstance() method if you plan to use multiple databases or 
      * the same database from several different places in your script.
+     * 
      * @param string $filename Path to binary geoip database.
-     * @param int $flags
+     * @param int    $flags    Flags
+     * 
      * @see getInstance()
      */
     public function __construct($filename = null, $flags = null)
     {
-        if($filename !== null) {
+        if ($filename !== null) {
             $this->open($filename, $flags);
         }        
         // store the instance, so that it will be returned by a call to
@@ -365,13 +376,18 @@ class Net_GeoIP
      * that attempt to use the SHARED_MEMORY will use the *same* shared memory, which will break
      * your script.
      * 
-     * @param string $filename
-     * @param int $flags       Flags that control class behavior.
-     *                         + Net_GeoIp::SHARED_MEMORY       - use SHMOP to share a db among multiple PHP instances.
-     *                                                     NOTE: ONLY ONE GEOIP INSTANCE CAN USE SHARED MEMORY!!!
-     *                         + Net_GeoIp::MEMORY_CACHE        - store the full contents of the database in memory for current script.
-     *                                                     This is useful if you access the database several times in a script.
-     *                         + Net_GeoIp::STANDARD            - [default] standard no-cache version.
+     * @param string $filename Filename
+     * @param int    $flags    Flags that control class behavior.
+     *          + Net_GeoIp::SHARED_MEMORY
+     *             Use SHMOP to share a db among multiple PHP instances.
+     *             NOTE: ONLY ONE GEOIP INSTANCE CAN USE SHARED MEMORY!!!
+     *          + Net_GeoIp::MEMORY_CACHE
+     *             Store the full contents of the database in memory for current script.
+     *             This is useful if you access the database several times in a script.
+     *          + Net_GeoIp::STANDARD
+     *             [default] standard no-cache version.
+     * 
+     * @return Net_GeoIP
      */
     public static function getInstance($filename = null, $flags = null)
     {
@@ -383,9 +399,13 @@ class Net_GeoIP
     
     /**
      * Opens geoip database at filename and with specified flags.
-     * @param string $filename
-     * @param int $flags
-     * @throws PEAR_Exception     - if unable to open specified file or shared memory.
+     * 
+     * @param string $filename File to open
+     * @param int    $flags    Flags
+     * 
+     * @return void
+     * 
+     * @throws PEAR_Exception if unable to open specified file or shared memory.
      */
     public function open($filename, $flags = null)
     {    
@@ -401,7 +421,7 @@ class Net_GeoIP
                     throw new PEAR_Exception("Unable to open shared memory at key: " . dechex(self::SHM_KEY));
                 }
             }
-          } else {
+        } else {
             $this->filehandle = fopen($filename, "rb");
             if (!$this->filehandle) {
                 throw new PEAR_Exception("Unable to open file: $filename");
@@ -416,11 +436,14 @@ class Net_GeoIP
     
     /**
      * Loads the database file into shared memory.
+     * 
      * @param string $filename Path to database file to read into shared memory.
+     * 
      * @return void
+     * 
      * @throws PEAR_Exception     - if unable to read the db file.
      */
-    private function loadSharedMemory($filename)
+    protected function loadSharedMemory($filename)
     {
         $fp = fopen($filename, "rb");
         if (!$fp) {
@@ -430,8 +453,8 @@ class Net_GeoIP
         $size = $s_array['size'];
         
         if ($shmid = @shmop_open(self::SHM_KEY, "w", 0, 0)) {
-            shmop_delete ($shmid);
-            shmop_close ($shmid);
+            shmop_delete($shmid);
+            shmop_close($shmid);
         }
         
         if ($shmid = @shmop_open(self::SHM_KEY, "c", 0644, $size)) {
@@ -453,7 +476,7 @@ class Net_GeoIP
      * 
      * @return void
      */
-    private function setupSegments()
+    protected function setupSegments()
     {
 
         $this->databaseType = self::COUNTRY_EDITION;
@@ -472,7 +495,7 @@ class Net_GeoIP
                         $this->databaseSegments = self::STATE_BEGIN_REV0;
                     } elseif ($this->databaseType === self::REGION_EDITION_REV1) {
                         $this->databaseSegments = self::STATE_BEGIN_REV1;
-                     } elseif (($this->databaseType === self::CITY_EDITION_REV0) 
+                    } elseif (($this->databaseType === self::CITY_EDITION_REV0) 
                                 || ($this->databaseType === self::CITY_EDITION_REV1) 
                                 || ($this->databaseType === self::ORG_EDITION)) {
                         $this->databaseSegments = 0;
@@ -480,7 +503,7 @@ class Net_GeoIP
                         for ($j = 0; $j < self::SEGMENT_RECORD_LENGTH; $j++) {
                             $this->databaseSegments += (ord($buf[$j]) << ($j * 8));
                         }
-                         if ($this->databaseType === self::ORG_EDITION) {
+                        if ($this->databaseType === self::ORG_EDITION) {
                             $this->recordLength = self::ORG_RECORD_LENGTH;
                         }
                     }
@@ -500,10 +523,10 @@ class Net_GeoIP
             for ($i = 0; $i < self::STRUCTURE_INFO_MAX_SIZE; $i++) {
                 $delim = fread($this->filehandle, 3);
                 if ($delim == (chr(255).chr(255).chr(255))) {
-                    $this->databaseType = ord(fread($this->filehandle,1));
+                    $this->databaseType = ord(fread($this->filehandle, 1));
                     if ($this->databaseType === self::REGION_EDITION_REV0) {
                         $this->databaseSegments = self::STATE_BEGIN_REV0;
-                    } elseif($this->databaseType === self::REGION_EDITION_REV1) { 
+                    } elseif ($this->databaseType === self::REGION_EDITION_REV1) {
                         $this->databaseSegments = self::STATE_BEGIN_REV1;
                     } elseif ($this->databaseType === self::CITY_EDITION_REV0 
                                 || $this->databaseType === self::CITY_EDITION_REV1
@@ -517,12 +540,12 @@ class Net_GeoIP
                             $this->recordLength = self::ORG_RECORD_LENGTH;
                         }
                     }
-                  break;
+                    break;
                 } else {
                     fseek($this->filehandle, -4, SEEK_CUR);
                 }
             }
-            if ($this->databaseType === self::COUNTRY_EDITION){
+            if ($this->databaseType === self::COUNTRY_EDITION) {
                 $this->databaseSegments = self::COUNTRY_BEGIN;
             }
             fseek($this->filehandle, $filepos, SEEK_SET);
@@ -532,6 +555,7 @@ class Net_GeoIP
         
     /**
      * Closes the geoip database.
+     * 
      * @return int Status of close command.
      */
     public function close()
@@ -552,11 +576,14 @@ class Net_GeoIP
      * methods.  It lookups up the index ('id') for the country which is the key
      * for the code and name.
      * 
-     * @param string $addr
+     * @param string $addr IP address (hostname not allowed)
+     * 
      * @throws PEAR_Exception  - if IP address is invalid.
      *                         - if database type is incorrect
+     * 
+     * @return string ID for the country
      */
-    private function lookupCountryId($addr)
+    protected function lookupCountryId($addr)
     {        
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
@@ -571,8 +598,11 @@ class Net_GeoIP
     /**
      * Returns 2-letter country code (e.g. 'CA') for specified IP address.
      * Use this method if you have a Country database.
+     * 
      * @param string $addr IP address (hostname not allowed).
+     * 
      * @return string 2-letter country code
+     * 
      * @throws PEAR_Exception (see lookupCountryId())
      * @see lookupCountryId()
      */
@@ -584,7 +614,9 @@ class Net_GeoIP
     /**
      * Returns full country name for specified IP address.
      * Use this method if you have a Country database.
+     * 
      * @param string $addr IP address (hostname not allowed).
+     * 
      * @return string Country name
      * @throws PEAR_Exception (see lookupCountryId())
      * @see lookupCountryId()
@@ -597,18 +629,20 @@ class Net_GeoIP
     /**
      * Using the record length and appropriate start points, seek to the country that corresponds
      * to the converted IP address integer.
+     * 
      * @param int $ipnum Result of ip2long() conversion.
+     * 
      * @return int Offset of start of record.
      * @throws PEAR_Exception - if fseek() fails on the file or no results after traversing the database (indicating corrupt db).
      */
-    private function seekCountry($ipnum)
+    protected function seekCountry($ipnum)
     {
         $offset = 0;
         for ($depth = 31; $depth >= 0; --$depth) {
             if ($this->flags & self::MEMORY_CACHE) {
                   $buf = substr($this->memoryBuffer, 2 * $this->recordLength * $offset, 2 * $this->recordLength);
             } elseif ($this->flags & self::SHARED_MEMORY) {
-                $buf = shmop_read ($this->shmid, 2 * $this->recordLength * $offset, 2 * $this->recordLength );
+                $buf = shmop_read($this->shmid, 2 * $this->recordLength * $offset, 2 * $this->recordLength);
             } else {
                 if (fseek($this->filehandle, 2 * $this->recordLength * $offset, SEEK_SET) !== 0) {
                     throw new PEAR_Exception("fseek failed");
@@ -639,15 +673,19 @@ class Net_GeoIP
     /**
      * Lookup the organization (or ISP) for given IP address.
      * Use this method if you have an Organization/ISP database.
+     * 
      * @param string $addr IP address (hostname not allowed).
-     * @throws PEAR_Exception     - if IP address is invalid.
+     * 
+     * @throws PEAR_Exception  - if IP address is invalid.
      *                         - if database is of wrong type
+     * 
+     * @return string The organization 
      */
     public function lookupOrg($addr)
     {
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
-           throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
+            throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
         if ($this->databaseType !== self::ORG_EDITION) {
             throw new PEAR_Exception("Invalid database type; lookupOrg() method expects Org/ISP database.", self::ERR_DB_FORMAT);
@@ -658,8 +696,11 @@ class Net_GeoIP
     /**
      * Lookup the region for given IP address.
      * Use this method if you have a Region database.
+     * 
      * @param string $addr IP address (hostname not allowed).
+     * 
      * @return array Array containing country code and region: array($country_code, $region)
+     * 
      * @throws PEAR_Exception - if IP address is invalid.
      */
     public function lookupRegion($addr)
@@ -677,13 +718,16 @@ class Net_GeoIP
     /**
      * Lookup the location record for given IP address.
      * Use this method if you have a City database.
+     * 
      * @param string $addr IP address (hostname not allowed).
+     * 
      * @return Net_GeoIP_Location The full location record.
+     * 
      * @throws PEAR_Exception - if IP address is invalid.
      */
     public function lookupLocation($addr)
     {
-        require_once 'Net/GeoIP/Location.php';
+        include_once 'Net/GeoIP/Location.php';
         $ipnum = ip2long($addr);
         if ($ipnum === false) {
             throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
@@ -696,9 +740,12 @@ class Net_GeoIP
 
     /**
      * Seek and return organization (or ISP) name for converted IP addr.
+     * 
      * @param int $ipnum Converted IP address.
+     * 
+     * @return string The organization
      */
-    private function getOrg($ipnum)
+    protected function getOrg($ipnum)
     {
         $seek_org = $this->seekCountry($ipnum);
         if ($seek_org == $this->databaseSegments) {
@@ -717,14 +764,16 @@ class Net_GeoIP
 
     /**
      * Seek and return the region info (array containing country code and region name) for converted IP addr.
+     * 
      * @param int $ipnum Converted IP address.
+     * 
      * @return array Array containing country code and region: array($country_code, $region)
      */
-    private function getRegion($ipnum)
+    protected function getRegion($ipnum)
     {
         if ($this->databaseType == self::REGION_EDITION_REV0) {
             $seek_region = $this->seekCountry($ipnum) - self::STATE_BEGIN_REV0;
-            if ($seek_region >= 1000){
+            if ($seek_region >= 1000) {
                 $country_code = "US";
                 $region = chr(($seek_region - 1000)/26 + 65) . chr(($seek_region - 1000)%26 + 65);
             } else {
@@ -735,13 +784,13 @@ class Net_GeoIP
         } elseif ($this->databaseType == self::REGION_EDITION_REV1) {
             $seek_region = $this->seekCountry($ipnum) - self::STATE_BEGIN_REV1;
             //print $seek_region;
-            if ($seek_region < self::US_OFFSET){
+            if ($seek_region < self::US_OFFSET) {
                 $country_code = "";
                 $region = "";  
-            } elseif ($seek_region < self::CANADA_OFFSET){
+            } elseif ($seek_region < self::CANADA_OFFSET) {
                 $country_code = "US";
                 $region = chr(($seek_region - self::US_OFFSET)/26 + 65) . chr(($seek_region - self::US_OFFSET)%26 + 65);
-            } elseif ($seek_region < self::WORLD_OFFSET){
+            } elseif ($seek_region < self::WORLD_OFFSET) {
                 $country_code = "CA";
                 $region = chr(($seek_region - self::CANADA_OFFSET)/26 + 65) . chr(($seek_region - self::CANADA_OFFSET)%26 + 65);
             } else {
@@ -755,10 +804,12 @@ class Net_GeoIP
     /**
      * Seek and populate Net_GeoIP_Location object for converted IP addr.
      * Note: this
+     * 
      * @param int $ipnum Converted IP address.
+     * 
      * @return Net_GeoIP_Location
      */
-    private function getRecord($ipnum)
+    protected function getRecord($ipnum)
     {
         $seek_country = $this->seekCountry($ipnum);
         if ($seek_country == $this->databaseSegments) {
@@ -778,65 +829,66 @@ class Net_GeoIP
         
         $record_buf_pos = 0;
         $char = ord(substr($record_buf, $record_buf_pos, 1));
-        $record->countryCode = self::$COUNTRY_CODES[$char];
+        
+        $record->countryCode  = self::$COUNTRY_CODES[$char];
         $record->countryCode3 = self::$COUNTRY_CODES3[$char];
-        $record->countryName = self::$COUNTRY_NAMES[$char];
+        $record->countryName  = self::$COUNTRY_NAMES[$char];
         $record_buf_pos++;
         $str_length = 0;
   
         //get region
-        $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
-        while ($char != 0){
+        $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
+        while ($char != 0) {
             $str_length++;
-            $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
+            $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
         }
-        if ($str_length > 0){
-            $record->region = substr($record_buf,$record_buf_pos,$str_length);
+        if ($str_length > 0) {
+            $record->region = substr($record_buf, $record_buf_pos, $str_length);
         }
         $record_buf_pos += $str_length + 1;
         $str_length = 0;
 
         //get city
-        $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
-        while ($char != 0){
+        $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
+        while ($char != 0) {
             $str_length++;
-            $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
+            $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
         }
-        if ($str_length > 0){
-            $record->city = substr($record_buf,$record_buf_pos,$str_length);
+        if ($str_length > 0) {
+            $record->city = substr($record_buf, $record_buf_pos, $str_length);
         }
         $record_buf_pos += $str_length + 1;
         $str_length = 0;
 
         //get postal code
-        $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
-        while ($char != 0){
+        $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
+        while ($char != 0) {
             $str_length++;
-            $char = ord(substr($record_buf,$record_buf_pos+$str_length,1));
+            $char = ord(substr($record_buf, $record_buf_pos+$str_length, 1));
         }
-        if ($str_length > 0){
-            $record->postalCode = substr($record_buf,$record_buf_pos,$str_length);
+        if ($str_length > 0) {
+            $record->postalCode = substr($record_buf, $record_buf_pos, $str_length);
         }
         $record_buf_pos += $str_length + 1;
         $str_length = 0;
-        $latitude = 0;
-        $longitude = 0;
-        for ($j = 0;$j < 3; ++$j){
+        $latitude   = 0;
+        $longitude  = 0;
+        for ($j = 0;$j < 3; ++$j) {
             $char = ord(substr($record_buf, $record_buf_pos++, 1));
             $latitude += ($char << ($j * 8));
         }
         $record->latitude = ($latitude/10000) - 180;
 
-        for ($j = 0;$j < 3; ++$j){
-            $char = ord(substr($record_buf,$record_buf_pos++,1));
+        for ($j = 0;$j < 3; ++$j) {
+            $char = ord(substr($record_buf, $record_buf_pos++, 1));
             $longitude += ($char << ($j * 8));
         }
         $record->longitude = ($longitude/10000) - 180;
                 
-        if ($this->databaseType === self::CITY_EDITION_REV1){
+        if ($this->databaseType === self::CITY_EDITION_REV1) {
             $dmaarea_combo = 0;
-            if ($record->countryCode == "US"){
-                for ($j = 0;$j < 3;++$j){
+            if ($record->countryCode == "US") {
+                for ($j = 0;$j < 3;++$j) {
                     $char = ord(substr($record_buf, $record_buf_pos++, 1));
                     $dmaarea_combo += ($char << ($j * 8));
                 }
