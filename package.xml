@@ -14,18 +14,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>hans@xmpl.org</email>
   <active>yes</active>
  </lead>
- <date>2008-03-02</date>
- <time>18:09:14</time>
+ <date>2009-09-20</date>
+ <time>14:48:14</time>
  <version>
-  <release>1.0.0RC1</release>
-  <api>1.0.0RC1</api>
+  <release>1.0.0RC2</release>
+  <api>1.0.0RC2</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license>LGPL 2.1</license>
- <notes>- After no [valid] bugs reported since alpha release, releasing first release candidate.
+ <notes>Second Release Candidate - QA Release
+* Request #16051 Coding standards fixes and simpler serialization for locations.
+* Update package.xml to version 2
  </notes>
  <contents>
   <dir name="/">
