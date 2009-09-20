@@ -41,14 +41,14 @@
  */
 class Net_GeoIP_DMA
 {
-	/**
-	 * Holds DMA -> Metro mapping.
-	 * @var array
-	 */
+    /**
+     * Holds DMA -> Metro mapping.
+     * @var array
+     */
     private static $dmaMap;
     
     public static function initialize()
-	{
+    {
         self::$dmaMap = array(
             500 => 'Portland-Auburn, ME',
             501 => 'New York, NY',
@@ -270,7 +270,7 @@ class Net_GeoIP_DMA
      * @return string Metro region name.
      */
     public static function getMetroRegion($dmaCode)
-	{
+    {
         if ($dmaCode === null) {
             return null;
         }
@@ -285,8 +285,8 @@ class Net_GeoIP_DMA
      * @param string $metro Metro region name.
      * @return int DMA code, or false if not found.
      */
-    public static function getDMACode($metro)	
-	{
+    public static function getDMACode($metro)    
+    {
         if (self::$dmaMap === null) {
             self::initialize();
         }

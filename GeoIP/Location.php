@@ -48,16 +48,16 @@ class Net_GeoIP_Location
     public $longitude;
     public $areaCode;
     public $dmaCode;
-          
+
     /**
      * Calculate the distance in km between two points.
      * @param Net_GeoIP_Location $loc The other point to which distance will be calculated.
      * @return float The number of km between two points on the globe.
      */
     public function distance(Net_GeoIP_Location $loc)
-	{        
+    {
         // ideally these should be class constants, but class constants 
-		// can't be operations.
+        // can't be operations.
         $RAD_CONVERT = M_PI / 180;
         $EARTH_DIAMETER = 2 * 6378.2;
         
@@ -78,5 +78,5 @@ class Net_GeoIP_Location
         $temp = pow(sin($delta_lat/2), 2) + cos($lat1) * cos($lat2) * pow(sin($delta_lon/2), 2);
         return $EARTH_DIAMETER * atan2(sqrt($temp),sqrt(1-$temp));
     }
-                
+
 }
