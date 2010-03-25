@@ -36,9 +36,6 @@ class Net_GeoIPTest extends PHPUnit_Framework_TestCase
         $geoip = Net_GeoIP::getInstance($path);
         $location = $geoip->lookupLocation('24.24.24.24');
 
-        $location = new Net_GeoIP_Location();
-        $location->set('countryCode', 'US');
-
         $this->assertSame(array('countryCode' => 'US',
                                 'countryCode3' => 'USA',
                                 'countryName' => 'United States',
@@ -48,7 +45,7 @@ class Net_GeoIPTest extends PHPUnit_Framework_TestCase
                                 'latitude' => 40.6763,
                                 'longitude' => -73.7752,
                                 'areaCode' => 718,
-                                'dmaCode' => 501
+                                'dmaCode' => 501.00
                                 ),
                         $location->getData());
     }

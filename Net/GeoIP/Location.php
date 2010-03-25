@@ -34,10 +34,10 @@
 
 /**
  * This class represents a location record as returned by Net_GeoIP::lookupLocation().
- * 
+ *
  * This class is primarily a collection of values (the public properties of the class), but
  * there is also a distance() method to calculate the km distance between two points.
- * 
+ *
  * @category Net
  * @package  Net_GeoIP
  * @author   Hans Lellelid <hans@xmpl.org>
@@ -65,18 +65,18 @@ class Net_GeoIP_Location implements Serializable
 
     /**
      * Calculate the distance in km between two points.
-     * 
+     *
      * @param Net_GeoIP_Location $loc The other point to which distance will be calculated.
-     * 
+     *
      * @return float The number of km between two points on the globe.
      */
     public function distance(Net_GeoIP_Location $loc)
     {
-        // ideally these should be class constants, but class constants 
+        // ideally these should be class constants, but class constants
         // can't be operations.
         $RAD_CONVERT = M_PI / 180;
         $EARTH_DIAMETER = 2 * 6378.2;
-        
+
         $lat1 = $this->latitude;
         $lon1 = $this->longitude;
         $lat2 = $loc->latitude;
@@ -101,7 +101,7 @@ class Net_GeoIP_Location implements Serializable
      * automatic serialization is on
      * Specifically it makes it possible to store
      * this object in memcache
-     * 
+     *
      * @return array
      */
     public function serialize()
@@ -111,9 +111,9 @@ class Net_GeoIP_Location implements Serializable
 
     /**
      * unserialize a representation of the object
-     * 
+     *
      * @param array $serialized The serialized representation of the location
-     * 
+     *
      * @return void
      */
     public function unserialize($serialized)
@@ -124,10 +124,10 @@ class Net_GeoIP_Location implements Serializable
 
     /**
      * Setter for elements of $this->aData array
-     * 
+     *
      * @param string $name The variable to set
      * @param string $val  The value
-     * 
+     *
      * @return object $this object
      */
     public function set($name, $val)
@@ -135,14 +135,18 @@ class Net_GeoIP_Location implements Serializable
         if (array_key_exists($name, $this->aData)) {
             $this->aData[$name] = $val;
         }
-    
+
         return $this;
     }
 
+    public function __set($name, $val)
+    {
+        return $this->set($name, $val);
+    }
 
     /**
      * Getter for $this->aData array
-     * 
+     *
      * @return array
      */
     public function getData()
@@ -153,9 +157,9 @@ class Net_GeoIP_Location implements Serializable
 
     /**
      * Magic method to get value from $this->aData array
-     * 
+     *
      * @param string $name The var to get
-     * 
+     *
      * @return mixed string if value exists or null if it is empty of
      * just does not exist
      */
@@ -164,14 +168,14 @@ class Net_GeoIP_Location implements Serializable
         if (array_key_exists($name, $this->aData)) {
             return $this->aData[$name];
         }
-    
+
         return null;
     }
 
 
     /**
      * String representation of the object
-     * 
+     *
      * @return string text and result of print_r of $this->aData array
      */
     public function __toString()
@@ -186,7 +190,7 @@ class Net_GeoIP_Location implements Serializable
      * and also makes it possible to use empty() on any property
      *
      * @param strign $name The name of the var to check
-     * 
+     *
      * @return bool
      */
     public function __isset($name)
