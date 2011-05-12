@@ -10,23 +10,25 @@
   <email>hans@xmpl.org</email>
   <active>yes</active>
  </lead>
- <date>2010-03-25</date>
- <time>00:56:09</time>
+ <lead>
+  <name>Olivier Hill</name>
+  <user>ohill</user>
+  <email>ohill@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-05-11</date>
+ <time>20:49:09</time>
  <version>
-  <release>1.0.0RC3</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license>LGPL 2.1</license>
  <notes>
-QA release
-Bug #17262 - Location setter is invalid
-Unit test coverage (minimal)
-Restructure packet
-Added sample data
+Push as stable
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +54,21 @@ Added sample data
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-05-11</date>
+   <license>LGPL 2.1</license>
+   <notes>
+Push as stable
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.0RC3</release>
