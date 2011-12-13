@@ -7,15 +7,22 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 /*
  * Files needed by PhpUnit
  */
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+if ($fp = @fopen('PHPUnit/Autoload.php', 'r', true)) {
+    require_once 'PHPUnit/Autoload.php';
+} elseif ($fp = @fopen('PHPUnit/Framework.php', 'r', true)) {
+    require_once 'PHPUnit/Framework.php';
+    require_once 'PHPUnit/TextUI/TestRunner.php';
+} else {
+    die('skip could not find PHPUnit');
+}
+fclose($fp);
 
 /**
  * File_IMC_ParseTest
  */
-require_once 'Net_GeoIPTest.php';
-require_once 'Net_GeoIP_LocationTest.php';
-require_once 'Net_GeoIP_DMATest.php';
+require_once dirname(__FILE__) . '/Net_GeoIPTest.php';
+require_once dirname(__FILE__) . '/Net_GeoIP_LocationTest.php';
+require_once dirname(__FILE__) . '/Net_GeoIP_DMATest.php';
 
 
 /**
