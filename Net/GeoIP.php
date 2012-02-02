@@ -262,6 +262,9 @@ class Net_GeoIP
     const REGION_EDITION_REV1 = 3;
     const CITY_EDITION_REV0 = 111;
     const CITY_EDITION_REV1 = 2;
+    const NETSPEED_EDITION_REV1 = 32;
+    const ASNUM_EDITION = 9;
+    const ISP_EDITION = 4;
     const ORG_EDITION = 110;
     const SEGMENT_RECORD_LENGTH = 3;
     const STANDARD_RECORD_LENGTH = 3;
@@ -497,13 +500,17 @@ class Net_GeoIP
                         $this->databaseSegments = self::STATE_BEGIN_REV1;
                     } elseif (($this->databaseType === self::CITY_EDITION_REV0)
                                 || ($this->databaseType === self::CITY_EDITION_REV1)
-                                || ($this->databaseType === self::ORG_EDITION)) {
+                                || ($this->databaseType === self::ORG_EDITION)
+                                || $this->databaseType === self::ISP_EDITION
+                                || $this->databaseType === self::ASNUM_EDITION
+                                || ($this->databaseType === self::NETSPEED_EDITION_REV1)) {
                         $this->databaseSegments = 0;
                         $buf = shmop_read($this->shmid, $offset, self::SEGMENT_RECORD_LENGTH);
                         for ($j = 0; $j < self::SEGMENT_RECORD_LENGTH; $j++) {
                             $this->databaseSegments += (ord($buf[$j]) << ($j * 8));
                         }
-                        if ($this->databaseType === self::ORG_EDITION) {
+                        if ($this->databaseType === self::ORG_EDITION
+                          || $this->databaseType === self::ISP_EDITION) {
                             $this->recordLength = self::ORG_RECORD_LENGTH;
                         }
                     }
@@ -530,13 +537,18 @@ class Net_GeoIP
                         $this->databaseSegments = self::STATE_BEGIN_REV1;
                     } elseif ($this->databaseType === self::CITY_EDITION_REV0
                                 || $this->databaseType === self::CITY_EDITION_REV1
-                                || $this->databaseType === self::ORG_EDITION) {
+                                || $this->databaseType === self::ORG_EDITION
+                                || $this->databaseType === self::ISP_EDITION
+                                || $this->databaseType === self::ASNUM_EDITION
+                                || ($this->databaseType === self::NETSPEED_EDITION_REV1)) {
                         $this->databaseSegments = 0;
                         $buf = fread($this->filehandle, self::SEGMENT_RECORD_LENGTH);
                         for ($j = 0; $j < self::SEGMENT_RECORD_LENGTH; $j++) {
                             $this->databaseSegments += (ord($buf[$j]) << ($j * 8));
                         }
-                        if ($this->databaseType === self::ORG_EDITION) {
+                        if ($this->databaseType === self::ORG_EDITION
+                          || $this->databaseType === self::ISP_EDITION
+                          ) {
                             $this->recordLength = self::ORG_RECORD_LENGTH;
                         }
                     }
@@ -687,7 +699,11 @@ class Net_GeoIP
         if ($ipnum === false) {
             throw new PEAR_Exception("Invalid IP address: " . var_export($addr, true), self::ERR_INVALID_IP);
         }
-        if ($this->databaseType !== self::ORG_EDITION) {
+        if ($this->databaseType !== self::ORG_EDITION
+          && $this->databaseType !== self::ISP_EDITION
+          && $this->databaseType !== self::ASNUM_EDITION
+          && $this->databaseType !== self::NETSPEED_EDITION_REV1
+          ) {
             throw new PEAR_Exception("Invalid database type; lookupOrg() method expects Org/ISP database.", self::ERR_DB_FORMAT);
         }
         return $this->getOrg($ipnum);
