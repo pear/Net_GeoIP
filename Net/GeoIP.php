@@ -660,6 +660,19 @@ class Net_GeoIP
     }
 
     /**
+     * Returns 2-letter continent code (e.g. 'EU') for specified IP address.
+     * Use this method if you have a country database.
+     *
+     * @param string $addr IP address (hostname not allowed).
+     *
+     * @return string 2-letter continent code
+     */
+    public function lookupContinentCode($addr)
+    {
+        return self::$CONTINENT_CODES[$this->lookupCountryId($addr)];
+    }
+
+    /**
      * Returns 2-letter country code (e.g. 'CA') for specified IP address.
      * Use this method if you have a Country database.
      *
