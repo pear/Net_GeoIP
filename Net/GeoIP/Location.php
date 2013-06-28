@@ -50,16 +50,17 @@
 class Net_GeoIP_Location implements Serializable
 {
     protected $aData = array(
-        'countryCode'  => null,
-        'countryCode3' => null,
-        'countryName'  => null,
-        'region'       => null,
-        'city'         => null,
-        'postalCode'   => null,
-        'latitude'     => null,
-        'longitude'    => null,
-        'areaCode'     => null,
-        'dmaCode'      => null
+        'continentCode' => null,
+        'countryCode'   => null,
+        'countryCode3'  => null,
+        'countryName'   => null,
+        'region'        => null,
+        'city'          => null,
+        'postalCode'    => null,
+        'latitude'      => null,
+        'longitude'     => null,
+        'areaCode'      => null,
+        'dmaCode'       => null,
     );
 
 
