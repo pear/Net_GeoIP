@@ -1,0 +1,36 @@
+{
+    "authors": [
+        {
+            "email": "hans@xmpl.org",
+            "name": "Hans Lellelid",
+            "role": "Lead"
+        },
+        {
+            "email": "ohill@php.net",
+            "name": "Olivier Hill",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Net": "./"
+        }
+    },
+    "description": "Determine physical location from IP address",
+    "include-path": [
+        "./"
+    ],
+    "license": "LGPL 2.1",
+    "name": "pear/net_geoip",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Net_GeoIP",
+        "source": "https://github.com/pear/Net_GeoIP"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
